@@ -1,4 +1,4 @@
-192.168.0.200
+localhost
 root
 1978
 DB_Estoque

@@ -8,8 +8,10 @@ package VIEW;
 import DAO.Conexao;
 import DAO.EntradaProdutoDAO;
 import DAO.ProdutoDAO;
+import DAO.SaidaProdutoDAO;
 import DTO.EntradaProdutoDTO;
 import DTO.ProdutoDTO;
+import DTO.SaidaProdutoDTO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -28,12 +30,12 @@ import net.proteanit.sql.DbUtils;
  *
  * @author mardio
  */
-public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
+public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
 
     /**
      * Creates new form frmEntradaProdutoVIEW
      */
-    public FrmEntradaProdutoVIEW() {
+    public FrmSaidaProdutoVIEW() {
         initComponents();
         txtPesquisa.requestFocus();
 
@@ -78,7 +80,7 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 3, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Entrada de Produto");
+        jLabel1.setText("Saída de Produto");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,7 +136,7 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
         txtProduto.setEditable(false);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Entrada:");
+        jLabel4.setText("Saída:");
 
         txtQtdEntrada.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
@@ -208,7 +210,7 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
                         .addGap(0, 76, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jpBackgroudLayout.createSequentialGroup()
-                .addGap(265, 265, 265)
+                .addGap(274, 274, 274)
                 .addComponent(btnCadastrar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -245,9 +247,9 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(32, 32, 32)
                 .addComponent(btnCadastrar)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,17 +286,17 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String DataEntrada = sdf.format(txtDataEntrada.getDate());
             //Instanciando a classe dos métodos Get e set
-            EntradaProdutoDTO objEntradaProdutoDTO = new EntradaProdutoDTO();
+            SaidaProdutoDTO objSaidaProdutoDTO = new SaidaProdutoDTO();
             //setando os valores nos atributos da classe EntradaProdutoDTO
-            objEntradaProdutoDTO.setId_produto(Integer.parseInt(txtIdProduto.getText()));
-            objEntradaProdutoDTO.setQtde(Integer.parseInt(txtQtdEntrada.getText()));
-            objEntradaProdutoDTO.setData_entrada(Date.valueOf(DataEntrada));
+            objSaidaProdutoDTO.setId_produto(Integer.parseInt(txtIdProduto.getText()));
+            objSaidaProdutoDTO.setQtde(Integer.parseInt(txtQtdEntrada.getText()));
+            objSaidaProdutoDTO.setData_saida(Date.valueOf(DataEntrada));
             // Tratar Valor unitário
             String valorString = txtValor.getText().replaceAll(",", ".");
             Double valorDouble = Double.parseDouble(valorString);
-            objEntradaProdutoDTO.setValor_unitario(valorDouble);
-            EntradaProdutoDAO objEntradaProdutoDAO = new EntradaProdutoDAO();
-            objEntradaProdutoDAO.CadastrarEntradaProduto(objEntradaProdutoDTO);
+            objSaidaProdutoDTO.setValor_unitario(valorDouble);
+            SaidaProdutoDAO objSaidaProdutoDAO = new SaidaProdutoDAO();
+            objSaidaProdutoDAO.CadastrarSaidaProduto(objSaidaProdutoDTO);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -315,14 +317,22 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmEntradaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSaidaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmEntradaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSaidaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmEntradaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSaidaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmEntradaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSaidaProdutoVIEW.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -335,7 +345,7 @@ public class FrmEntradaProdutoVIEW extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmEntradaProdutoVIEW().setVisible(true);
+                new FrmSaidaProdutoVIEW().setVisible(true);
             }
         });
     }
