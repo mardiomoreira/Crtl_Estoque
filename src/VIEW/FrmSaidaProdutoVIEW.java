@@ -66,8 +66,9 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
         txtDataEntrada = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtValor = new javax.swing.JFormattedTextField();
         btnCadastrar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
+        txtValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,13 +157,19 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Valor unitário:");
 
-        txtValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtValor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/add-to-basket32.png"))); // NOI18N
+        btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/clean32.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -199,9 +206,9 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jpBackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtValor)))))))
+                                        .addGroup(jpBackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(jpBackgroudLayout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,8 +217,10 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
                         .addGap(0, 76, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jpBackgroudLayout.createSequentialGroup()
-                .addGap(274, 274, 274)
+                .addGap(175, 175, 175)
                 .addComponent(btnCadastrar)
+                .addGap(50, 50, 50)
+                .addComponent(btnLimpar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jpBackgroudLayout.setVerticalGroup(
@@ -247,9 +256,11 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnCadastrar)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jpBackgroudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnLimpar))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -297,8 +308,13 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
             objSaidaProdutoDTO.setValor_unitario(valorDouble);
             SaidaProdutoDAO objSaidaProdutoDAO = new SaidaProdutoDAO();
             objSaidaProdutoDAO.CadastrarSaidaProduto(objSaidaProdutoDTO);
+            LimparCampos();
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+LimparCampos();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -352,6 +368,7 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -368,7 +385,7 @@ public class FrmSaidaProdutoVIEW extends javax.swing.JFrame {
     private javax.swing.JTextField txtPesquisa;
     private javax.swing.JTextField txtProduto;
     private javax.swing.JFormattedTextField txtQtdEntrada;
-    private javax.swing.JFormattedTextField txtValor;
+    private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 private void listarValoresProdutos() {
         ProdutoDAO objProdutoDAO = new ProdutoDAO();
@@ -389,7 +406,7 @@ private void listarValoresProdutos() {
 // método para pesquisar produtos com filtros
 
     private void PesquisarProduto() {
-        String sql = "SELECT * FROM `produto` WHERE `descricao` LIKE ?";
+        String sql = "SELECT * FROM `produto` WHERE  status='A' AND `descricao` LIKE ?";
         try {
             Connection Conn = new Conexao().conexaoBD();
             PreparedStatement pst = Conn.prepareStatement(sql);
@@ -402,5 +419,16 @@ private void listarValoresProdutos() {
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "frmEntradaProdutoVIEW: " + erro);
         }
+    }
+        private void LimparCampos() {
+        txtDataEntrada.setDate(null);
+        txtIdProduto.setText("");
+        txtPesquisa.setText("");
+        txtQtdEntrada.setText("");
+        txtValor.setText("");
+        txtProduto.setText("");
+        DefaultTableModel model = (DefaultTableModel) tabelaProduto.getModel();
+        model.setRowCount(0);
+
     }
 }

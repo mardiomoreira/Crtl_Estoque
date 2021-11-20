@@ -159,20 +159,28 @@ public class FrmProdutoVIEW extends javax.swing.JFrame {
         } else {
             if (rbAtivador.isSelected()) {
                 status = "A";
+                objProdutoDTO.setDescricao(txtDescricao.getText());
+                objProdutoDTO.setEstoque_maximo(Integer.parseInt(txtEstoqueMaximo.getText()));
+                objProdutoDTO.setEstoque_minimo(Integer.parseInt(txtEstoqueMinimo.getText()));
+                objProdutoDTO.setStatus(status);
+
+                ProdutoDAO objProdutoDAO = new ProdutoDAO();
+                objProdutoDAO.cadastrarProduto(objProdutoDTO);
+                limparCampos();
             } else if (rbDesativado.isSelected()) {
                 status = "I";
+                objProdutoDTO.setDescricao(txtDescricao.getText());
+                objProdutoDTO.setEstoque_maximo(Integer.parseInt(txtEstoqueMaximo.getText()));
+                objProdutoDTO.setEstoque_minimo(Integer.parseInt(txtEstoqueMinimo.getText()));
+                objProdutoDTO.setStatus(status);
+
+                ProdutoDAO objProdutoDAO = new ProdutoDAO();
+                objProdutoDAO.cadastrarProduto(objProdutoDTO);
+                limparCampos();
             } else {
                 JOptionPane.showMessageDialog(null, "Favor Selecionar um STATUS");
             }
-            objProdutoDTO.setDescricao(txtDescricao.getText());
-            objProdutoDTO.setEstoque_maximo(Integer.parseInt(txtEstoqueMaximo.getText()));
-            objProdutoDTO.setEstoque_minimo(Integer.parseInt(txtEstoqueMinimo.getText()));
-            objProdutoDTO.setStatus(status);
 
-
-            ProdutoDAO objProdutoDAO = new ProdutoDAO();
-            objProdutoDAO.cadastrarProduto(objProdutoDTO);
-            limparCampos();
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
