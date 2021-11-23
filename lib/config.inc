@@ -1,4 +1,0 @@
-localhost
-root
-1978
-DB_Estoque

@@ -5,6 +5,12 @@
  */
 package VIEW;
 
+import DAO.EstoqueMinimoDAO;
+import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mardio
@@ -16,6 +22,7 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
      */
     public TelaPrincipalVIEW() {
         initComponents();
+        avisoEstoqueMinimo();
     }
 
     /**
@@ -29,12 +36,16 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
 
         jpBackgroud = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jlAvisoTexto = new javax.swing.JLabel();
+        jlAviso = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmProduto = new javax.swing.JMenuItem();
         jmEntradaProduto = new javax.swing.JMenuItem();
         jmSaidaProduto = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jmEstoqueMin = new javax.swing.JMenuItem();
+        jmEstoqueMaximo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +56,13 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/logo.png"))); // NOI18N
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
         jpBackgroud.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 7, 548, 330));
+
+        jlAvisoTexto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jlAvisoTexto.setText("jLabel2");
+        jpBackgroud.add(jlAvisoTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 7, -1, 30));
+
+        jlAviso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jpBackgroud.add(jlAviso, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 100, 70));
 
         jMenu1.setText("Cadastro");
 
@@ -74,7 +92,24 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Estoque");
+
+        jmEstoqueMin.setText("Estoque Mínimo");
+        jmEstoqueMin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEstoqueMinActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmEstoqueMin);
+
+        jmEstoqueMaximo.setText("Estoque Máximo");
+        jmEstoqueMaximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEstoqueMaximoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmEstoqueMaximo);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -83,9 +118,7 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jpBackgroud, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jpBackgroud, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,19 +130,29 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmProdutoActionPerformed
-FrmProdutoVIEW objFrmProdutoVIEW = new FrmProdutoVIEW();
-objFrmProdutoVIEW.setVisible(true);
+        FrmProdutoVIEW objFrmProdutoVIEW = new FrmProdutoVIEW();
+        objFrmProdutoVIEW.setVisible(true);
     }//GEN-LAST:event_jmProdutoActionPerformed
 
     private void jmEntradaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEntradaProdutoActionPerformed
-FrmEntradaProdutoVIEW objFrmEntradaProdutoVIEW =new FrmEntradaProdutoVIEW();
-objFrmEntradaProdutoVIEW.setVisible(true);
+        FrmEntradaProdutoVIEW objFrmEntradaProdutoVIEW = new FrmEntradaProdutoVIEW();
+        objFrmEntradaProdutoVIEW.setVisible(true);
     }//GEN-LAST:event_jmEntradaProdutoActionPerformed
 
     private void jmSaidaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSaidaProdutoActionPerformed
-FrmSaidaProdutoVIEW objFrmSaidaProdutoVIEW = new FrmSaidaProdutoVIEW();
-objFrmSaidaProdutoVIEW.setVisible(true);
+        FrmSaidaProdutoVIEW objFrmSaidaProdutoVIEW = new FrmSaidaProdutoVIEW();
+        objFrmSaidaProdutoVIEW.setVisible(true);
     }//GEN-LAST:event_jmSaidaProdutoActionPerformed
+
+    private void jmEstoqueMinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEstoqueMinActionPerformed
+        EstoqueMinimoVIEW objEstoqueMinimoVIEW = new EstoqueMinimoVIEW();
+        objEstoqueMinimoVIEW.setVisible(true);
+    }//GEN-LAST:event_jmEstoqueMinActionPerformed
+
+    private void jmEstoqueMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEstoqueMaximoActionPerformed
+        EstoqueMaximoVIEW objEstoqueMaximoVIEW = new EstoqueMaximoVIEW();
+        objEstoqueMaximoVIEW.setVisible(true);
+    }//GEN-LAST:event_jmEstoqueMaximoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,9 +194,29 @@ objFrmSaidaProdutoVIEW.setVisible(true);
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel jlAviso;
+    private javax.swing.JLabel jlAvisoTexto;
     private javax.swing.JMenuItem jmEntradaProduto;
+    private javax.swing.JMenuItem jmEstoqueMaximo;
+    private javax.swing.JMenuItem jmEstoqueMin;
     private javax.swing.JMenuItem jmProduto;
     private javax.swing.JMenuItem jmSaidaProduto;
     private javax.swing.JPanel jpBackgroud;
     // End of variables declaration//GEN-END:variables
+public void avisoEstoqueMinimo() {
+        EstoqueMinimoDAO est = new EstoqueMinimoDAO();
+        ArrayList resultado = new ArrayList();
+        resultado = est.estoqueMinimo();
+        
+        if (resultado.size() > 0) {
+            jlAviso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMG/aviso.gif")));
+            jlAvisoTexto.setText("Estoque Mín.");
+            jlAvisoTexto.setBackground(Color.WHITE);
+            jlAvisoTexto.setForeground(Color.red);
+            
+        } else {
+            jlAviso.setText("");
+            jlAvisoTexto.setText("");
+        }
+    }
 }
