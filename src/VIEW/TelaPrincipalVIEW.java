@@ -6,23 +6,28 @@
 package VIEW;
 
 import DAO.EstoqueMinimoDAO;
+import DAO.ModuloConexao;
 import java.awt.Color;
+import java.sql.Connection;
 import java.util.ArrayList;
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author mardio
  */
 public class TelaPrincipalVIEW extends javax.swing.JFrame {
-
+Connection conexao = null;
     /**
      * Creates new form TelaPrincipalVIEW
      */
     public TelaPrincipalVIEW() {
         initComponents();
         avisoEstoqueMinimo();
+        conexao = ModuloConexao.conectar();
     }
 
     /**
@@ -46,6 +51,9 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jmEstoqueMin = new javax.swing.JMenuItem();
         jmEstoqueMaximo = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        menEstoqueMinimo = new javax.swing.JMenuItem();
+        menuEstoqueMaximo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,6 +120,26 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setText("Relatorio");
+
+        menEstoqueMinimo.setText("Estoque Mínimo");
+        menEstoqueMinimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menEstoqueMinimoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menEstoqueMinimo);
+
+        menuEstoqueMaximo.setText("Estoque Máximo");
+        menuEstoqueMaximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEstoqueMaximoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuEstoqueMaximo);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,6 +182,14 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
         objEstoqueMaximoVIEW.setVisible(true);
     }//GEN-LAST:event_jmEstoqueMaximoActionPerformed
 
+    private void menEstoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menEstoqueMinimoActionPerformed
+relEstoqueMinimo();
+    }//GEN-LAST:event_menEstoqueMinimoActionPerformed
+
+    private void menuEstoqueMaximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstoqueMaximoActionPerformed
+relEstoqueMaximo();
+    }//GEN-LAST:event_menuEstoqueMaximoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -193,6 +229,7 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel jlAviso;
     private javax.swing.JLabel jlAvisoTexto;
@@ -202,6 +239,8 @@ public class TelaPrincipalVIEW extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmProduto;
     private javax.swing.JMenuItem jmSaidaProduto;
     private javax.swing.JPanel jpBackgroud;
+    private javax.swing.JMenuItem menEstoqueMinimo;
+    private javax.swing.JMenuItem menuEstoqueMaximo;
     // End of variables declaration//GEN-END:variables
 public void avisoEstoqueMinimo() {
         EstoqueMinimoDAO est = new EstoqueMinimoDAO();
@@ -219,4 +258,32 @@ public void avisoEstoqueMinimo() {
             jlAvisoTexto.setText("");
         }
     }
+public void relEstoqueMinimo(){
+    int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão do Relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            //imorimindo relatório com o framework JasperReport
+            try {
+                //Usando a lasse JasperPrint para preparar a impressão
+                JasperPrint print = JasperFillManager.fillReport("estoqueminimo.jasper", null, conexao);
+                //a linha abaixo exibe o relatorio atraveés da Classe JasperVIEW
+                JasperViewer.viewReport(print,false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+}
+public void relEstoqueMaximo(){
+    int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão do Relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_NO_OPTION) {
+            //imorimindo relatório com o framework JasperReport
+            try {
+                //Usando a lasse JasperPrint para preparar a impressão
+                JasperPrint print = JasperFillManager.fillReport("estoquemaximo.jasper", null, conexao);
+                //a linha abaixo exibe o relatorio atraveés da Classe JasperVIEW
+                JasperViewer.viewReport(print,false);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+}
 }
